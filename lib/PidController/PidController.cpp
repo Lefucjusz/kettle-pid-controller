@@ -73,9 +73,6 @@ void PidController::compute()
     const auto error = setpoint - input;
     const auto dError = (error - lastError) * settings.sampleRateHz; 
     const auto dErrorFiltered = applyLowPassFilter(dError, lastDError);
-    Serial.print("D:");
-    Serial.print(settings.kd * dErrorFiltered);
-    Serial.print(',');
 
     /* Update I term and apply anti-windup */
     const auto dIntegral = settings.ki * error / settings.sampleRateHz;
@@ -86,9 +83,6 @@ void PidController::compute()
         integralTerm += dIntegral;    
     }
     integralTerm = clamp(integralTerm, settings.outputMin, settings.outputMax);
-    Serial.print("I:");
-    Serial.print(integralTerm);
-    Serial.print(',');
 
     /* Update output and apply limits */
     output = settings.kp * error + integralTerm + settings.kd * dErrorFiltered;
