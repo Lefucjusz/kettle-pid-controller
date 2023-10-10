@@ -72,9 +72,6 @@ namespace
 
 void setup() 
 {
-    // pinMode(pwmPin, OUTPUT);
-    // digitalWrite(pwmPin, LOW);
-
     sensor.begin();
     sensor.requestTemperaturesByIndex(0);
     tempMeasured = sensor.getTempCByIndex(0);
